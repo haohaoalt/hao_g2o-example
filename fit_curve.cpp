@@ -113,7 +113,7 @@ int main(int argc, char **argv) {
 
     VertexParams *params = new VertexParams();
     params->setId(0);
-    params->setEstimate(Eigen::Vector3d(1, 1, 1));//初始化顶点的估计值
+    params->setEstimate(Eigen::Vector3d(0, 0, 0));//初始化顶点的估计值
     optimizer.addVertex(params);
 
     for (int i = 0; i < numPoints; ++i) {
@@ -134,9 +134,9 @@ int main(int argc, char **argv) {
         optimizer.addEdge(e);
     }
 
-    optimizer.initializeOptimization();
-    optimizer.setVerbose(verbose);
-    optimizer.optimize(maxIterations);
+    optimizer.initializeOptimization(); // 初始化整个优化器
+    // optimizer.setVerbose(verbose);
+    optimizer.optimize(maxIterations); // 开始执行优化，迭代的次数为maxIterations
 
     ofstream result_file("../result.txt");
     result_file << params->estimate()[0] << " "
@@ -145,12 +145,12 @@ int main(int argc, char **argv) {
     result_file.close();
 
 
-    cout << endl << "a, b, lambda: "
-         << params->estimate()[0] << ", "
-         << params->estimate()[1] << ", "
-         << params->estimate()[2] << endl;
+    // cout << endl << "a, b, lambda: "
+    //      << params->estimate()[0] << ", "
+    //      << params->estimate()[1] << ", "
+    //      << params->estimate()[2] << endl;
 
-    delete[] points;
+    // delete[] points;
 
     return 0;
 }
